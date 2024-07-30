@@ -16,7 +16,7 @@
   "scripts": {
     "start": "concurrently \"npm run start:client\" \"flask --app ../api.app run\"",
     "start:client": "cross-env PORT=3001 react-scripts start",
-    "build": "npm run build",
+    "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },

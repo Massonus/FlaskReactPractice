@@ -108,7 +108,7 @@ dev.env
 deploy.env
 deploytest.env
 .env
-.venv
+venv
 .idea
 env/
 venv/
