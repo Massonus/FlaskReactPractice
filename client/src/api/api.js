@@ -1,6 +1,5 @@
 import axios from 'axios'; // Импорт библиотеки axios для выполнения HTTP-запросов
-
-const API_URL = 'http://localhost:5000'; // Базовый URL для API
+import {API_URL} from '../config'; // Импорт базового URL API из конфигурации
 
 // Функция для получения всех пользователей
 export const getUsers = async () => {

@@ -1,10 +1,16 @@
 import os
+
+from dotenv import load_dotenv
 from flask import Flask, send_from_directory  # Импорт необходимых модулей Flask и os
 from flask_cors import CORS  # Импорт CORS для управления кросс-доменными запросами
-from api.models.user import db  # Импорт экземпляра базы данных
+
 from api.config.config import Config  # Импорт конфигурации
-from api.routes.user_routes import user_bp  # Импорт маршрутов для пользователей
+from api.models.user import db  # Импорт экземпляра базы данных
 from api.routes.about_us_routes import about_us_bp  # Импорт маршрутов для страницы "О нас"
+from api.routes.user_routes import user_bp  # Импорт маршрутов для пользователей
+
+# Загрузка переменных окружения из .env файла
+load_dotenv()
 
 # Создание экземпляра Flask-приложения
 app = Flask(__name__, static_folder='../client/build', static_url_path='/')
@@ -41,4 +47,4 @@ def serve_react_app(path):
 
 # Запуск приложения
 if __name__ == '__main__':
-    app.run(debug=True)  # Включение режима отладки
+    app.run(host='localhost', port=5001, debug=True)  # Включение режима отладки
