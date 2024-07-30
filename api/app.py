@@ -13,8 +13,7 @@ db.init_app(app)
 
 @app.before_request
 def create_tables():
-    if not os.path.exists('mydatabase.db'):  # Проверьте, существует ли база данных
-        db.create_all()
+    db.create_all()
 
 
 @app.route('/users', methods=['GET'])
@@ -30,6 +29,27 @@ def add_user():
     db.session.add(new_user)
     db.session.commit()
     return jsonify(new_user.to_dict()), 201
+
+
+@app.route('/users/<int:user_id>', methods=['PUT'])
+def update_user(user_id):
+    data = request.get_json()
+    user = User.query.get(user_id)
+    if user:
+        user.name = data['name']
+        db.session.commit()
+        return jsonify(user.to_dict()), 200
+    return jsonify({'message': 'User not found'}), 404
+
+
+@app.route('/users/<int:user_id>', methods=['DELETE'])
+def delete_user(user_id):
+    user = User.query.get(user_id)
+    if user:
+        db.session.delete(user)
+        db.session.commit()
+        return jsonify({'message': 'User deleted'}), 200
+    return jsonify({'message': 'User not found'}), 404
 
 
 @app.route('/', defaults={'path': ''})

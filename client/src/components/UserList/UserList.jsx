@@ -1,26 +1,34 @@
 import React, {useEffect, useState} from 'react';
-import {getUsers} from '../../api/api';
+import {getUsers, deleteUser} from '../../api/api';
 import './UserList.css';
 
-const UserList = () => {
+const UserList = ({onEdit}) => {
     const [users, setUsers] = useState([]);
 
-    // useEffect для загрузки списка пользователей при монтировании компонента
     useEffect(() => {
-        const fetchUsers = async () => {
-            const usersData = await getUsers();
-            setUsers(usersData);
-        };
-
         fetchUsers();
     }, []);
+
+    const fetchUsers = async () => {
+        const usersData = await getUsers();
+        setUsers(usersData);
+    };
+
+    const handleDelete = async (userId) => {
+        await deleteUser(userId);
+        fetchUsers();
+    };
 
     return (
         <div>
             <h2>User List</h2>
             <ul>
                 {users.map((user) => (
-                    <li key={user.id}>{user.name}</li>
+                    <li key={user.id}>
+                        {user.name}
+                        <button onClick={() => onEdit(user)}>Edit</button>
+                        <button onClick={() => handleDelete(user.id)}>Delete</button>
+                    </li>
                 ))}
             </ul>
         </div>
