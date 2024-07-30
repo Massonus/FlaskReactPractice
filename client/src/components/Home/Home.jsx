@@ -18,6 +18,10 @@ const Home = () => {
         setUsers(usersData);
     };
 
+    const handleUserAdded = () => {
+        fetchUsers();
+    };
+
     const handleEdit = (user) => {
         setEditingUser(user);
     };
@@ -28,9 +32,9 @@ const Home = () => {
     };
 
     return (
-        <div className="home-container">
-            <h1 className="home-title">My App</h1>
-            <AddUser fetchUsers={fetchUsers}/>
+        <div>
+            <h1>My App</h1>
+            <AddUser onUserAdded={handleUserAdded}/>
             {editingUser ? (
                 <EditUser user={editingUser} onUpdate={handleUpdate}/>
             ) : (

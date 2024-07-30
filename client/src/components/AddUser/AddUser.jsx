@@ -2,27 +2,25 @@ import React, {useState} from 'react';
 import {addUser} from '../../api/api';
 import './AddUser.css';
 
-const AddUser = ({fetchUsers}) => {
+const AddUser = ({onUserAdded}) => {
     const [name, setName] = useState('');
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        await addUser({name});
-        fetchUsers();
-        setName('');
+        const newUser = await addUser({name});
+        onUserAdded(newUser);
     };
 
     return (
-        <div className="add-user-container">
+        <div>
             <h2>Add User</h2>
-            <form className="add-user-form" onSubmit={handleSubmit}>
+            <form onSubmit={handleSubmit}>
                 <input
                     type="text"
-                    className="add-user-input"
                     value={name}
                     onChange={(e) => setName(e.target.value)}
                 />
-                <button type="submit" className="add-user-button">Add</button>
+                <button type="submit">Add</button>
             </form>
         </div>
     );
