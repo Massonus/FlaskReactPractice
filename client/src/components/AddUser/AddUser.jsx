@@ -9,6 +9,8 @@ const AddUser = ({onUserAdded}) => {
         e.preventDefault();
         const newUser = await addUser({name});
         onUserAdded(newUser);
+        setName('');
+        window.location.reload(); // Перезагрузка страницы после добавления пользователя
     };
 
     return (
