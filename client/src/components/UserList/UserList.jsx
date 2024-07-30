@@ -20,14 +20,14 @@ const UserList = ({onEdit}) => {
     };
 
     return (
-        <div>
+        <div className="user-list-container">
             <h2>User List</h2>
             <ul>
                 {users.map((user) => (
-                    <li key={user.id}>
+                    <li key={user.id} className="user-list-item">
                         {user.name}
-                        <button onClick={() => onEdit(user)}>Edit</button>
-                        <button onClick={() => handleDelete(user.id)}>Delete</button>
+                        <button className="user-list-button" onClick={() => onEdit(user)}>Edit</button>
+                        <button className="user-list-button" onClick={() => handleDelete(user.id)}>Delete</button>
                     </li>
                 ))}
             </ul>

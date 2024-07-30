@@ -1,8 +1,10 @@
 import os
-from flask import Flask, request, jsonify, send_from_directory
+from flask import Flask, send_from_directory
 from flask_cors import CORS
-from api.models.user import db, User
+from api.models.user import db
 from api.config.config import Config
+from api.routes.user_routes import user_bp
+from api.routes.about_us_routes import about_us_bp
 
 app = Flask(__name__, static_folder='../client/build', static_url_path='/')
 app.config.from_object(Config)
@@ -10,46 +12,11 @@ CORS(app)
 
 db.init_app(app)
 
-
-@app.before_request
-def create_tables():
+with app.app_context():
     db.create_all()
 
-
-@app.route('/users', methods=['GET'])
-def get_users():
-    users = User.query.all()
-    return jsonify([user.to_dict() for user in users])
-
-
-@app.route('/users', methods=['POST'])
-def add_user():
-    data = request.get_json()
-    new_user = User(name=data['name'])
-    db.session.add(new_user)
-    db.session.commit()
-    return jsonify(new_user.to_dict()), 201
-
-
-@app.route('/users/<int:user_id>', methods=['PUT'])
-def update_user(user_id):
-    data = request.get_json()
-    user = User.query.get(user_id)
-    if user:
-        user.name = data['name']
-        db.session.commit()
-        return jsonify(user.to_dict()), 200
-    return jsonify({'message': 'User not found'}), 404
-
-
-@app.route('/users/<int:user_id>', methods=['DELETE'])
-def delete_user(user_id):
-    user = User.query.get(user_id)
-    if user:
-        db.session.delete(user)
-        db.session.commit()
-        return jsonify({'message': 'User deleted'}), 200
-    return jsonify({'message': 'User not found'}), 404
+app.register_blueprint(user_bp)
+app.register_blueprint(about_us_bp)
 
 
 @app.route('/', defaults={'path': ''})

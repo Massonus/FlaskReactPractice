@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState} from 'react';
 import {updateUser} from '../../api/api';
 import './EditUser.css';
 
@@ -12,15 +12,16 @@ const EditUser = ({user, onUpdate}) => {
     };
 
     return (
-        <div>
+        <div className="edit-user-container">
             <h2>Edit User</h2>
-            <form onSubmit={handleSubmit}>
+            <form className="edit-user-form" onSubmit={handleSubmit}>
                 <input
                     type="text"
+                    className="edit-user-input"
                     value={name}
                     onChange={(e) => setName(e.target.value)}
                 />
-                <button type="submit">Update</button>
+                <button type="submit" className="edit-user-button">Update</button>
             </form>
         </div>
     );
