@@ -1,11 +1,11 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import App from './App';
-import './index.css';
+import React from 'react'; // Импорт React
+import ReactDOM from 'react-dom/client'; // Импорт методов для работы с DOM
+import './index.css'; // Импорт глобальных стилей
+import App from './App'; // Импорт главного компонента приложения
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
+const root = ReactDOM.createRoot(document.getElementById('root')); // Создание корневого элемента
 root.render(
     <React.StrictMode>
-        <App/>
+        <App/> {/* Рендер главного компонента приложения */}
     </React.StrictMode>
 );
