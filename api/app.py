@@ -15,6 +15,12 @@ load_dotenv()
 # Создание экземпляра Flask-приложения
 app = Flask(__name__, static_folder='../client/build', static_url_path='/')
 
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'client/build/static'),
+]
+
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+
 # Загрузка конфигурации из объекта Config
 app.config.from_object(Config)
 
